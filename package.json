@@ -1,0 +1,51 @@
+{
+  "name": "cuber",
+  "homepage": "/cuber",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "font-awesome": "^4.7.0",
+    "moment": "^2.29.1",
+    "prop-types": "^15.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-input-mask": "^2.0.4",
+    "react-intl-universal": "^2.4.2",
+    "react-notifications": "^1.7.2",
+    "react-number-format": "^4.6.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^5.0.1",
+    "react-stomp": "^5.0.0",
+    "sass": "^1.32.11",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-offline": "^2.4.1-1",
+    "semantic-ui-react": "^2.0.1",
+    "sr-puzzlegen": "^1.0.4",
+    "styled-components": "^5.2.1",
+    "swagger-ui-react": "^4.19.0",
+    "uifx": "^2.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+.wrapD3Cube {
+    --size: 66px;
+    width: calc(var(--size) * 4.5);
+    height: calc(var(--size) * 4.5);;
+    margin: 20px auto;
+    position: relative;
+    border: 1px solid red
+}
+.D3Cube {
+    transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    margin: calc(var(--size) * 1.75) calc(var(--size) * 1.75);
+    position: absolute;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    width: var(--size);
+    height: var(--size);
+}
+.D3Cube > div {
+    position: absolute;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    width: 100%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    border: 4px #695f5e solid;
+    border-radius: 4px;
+}
+.D3Cube .white {
+    transform: rotatex(90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -moz-transform: rotatex(90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -webkit-transform: rotatex(90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    background-color: #FFF;
+}
+.D3Cube .orange {
+    transform: rotateY(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -moz-transform: rotateY(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -webkit-transform: rotateY(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    background-color: #ff5800;
+}
+.D3Cube .green {
+    transform: translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -moz-transform: translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -webkit-transform: translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    background-color: #009b48;
+}
+.D3Cube .red {
+    transform: rotateY(90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -moz-transform: rotateY(90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -webkit-transform: rotateY(90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    background-color: #b71234;
+}
+.D3Cube .blue {
+    transform: rotateY(180deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -moz-transform: rotateY(180deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -webkit-transform: rotateY(180deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    background-color: #0046ad ;
+}
+.D3Cube .yellow {
+    transform: rotateX(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -moz-transform: rotateX(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    -webkit-transform: rotateX(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
+    background-color: #ffd500;
+}

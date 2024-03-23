@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg fill="#000000" viewBox="75 50 135 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <g id="cube" class="cube-unit">
+      <rect width="21" height="24" fill="#ff5800" stroke="#695f5e" transform="skewY(30)"/>
+      <rect width="21" height="24" fill="#0046ad" stroke="#695f5e" transform="skewY(-30) translate(21 24.3)"/>
+      <rect width="21" height="21" fill="#ffd500" stroke="#695f5e" transform="scale(1.41,.81) rotate(45) translate(0 -21)"/>
+    </g>
+  </defs>
+  <use xlink:href="#cube" x="121" y="112"/>
+  <use xlink:href="#cube" x="100" y="124"/>
+  <use xlink:href="#cube" x="142" y="124"/>
+  <use xlink:href="#cube" x="121" y="136"/>
+  <use xlink:href="#cube" x="79" y="136"/>
+  <use xlink:href="#cube" x="163" y="136"/>
+  <use xlink:href="#cube" x="142" y="148"/>
+  <use xlink:href="#cube" x="100" y="148"/>
+  <use xlink:href="#cube" x="121" y="160"/>
+  <use xlink:href="#cube" x="121" y="88"/>
+  <use xlink:href="#cube" x="100" y="100"/>
+  <use xlink:href="#cube" x="142" y="100"/>
+  <use xlink:href="#cube" x="121" y="112"/>
+  <use xlink:href="#cube" x="79" y="112"/>
+  <use xlink:href="#cube" x="163" y="112"/>
+  <use xlink:href="#cube" x="142" y="124"/>
+  <use xlink:href="#cube" x="100" y="124"/>
+  <use xlink:href="#cube" x="121" y="136"/>
+  <use xlink:href="#cube" x="121" y="64"/>
+  <use xlink:href="#cube" x="100" y="76"/>
+  <use xlink:href="#cube" x="142" y="76"/>
+  <use xlink:href="#cube" x="121" y="88"/>
+  <use xlink:href="#cube" x="79" y="88"/>
+  <use xlink:href="#cube" x="163" y="88"/>
+  <use xlink:href="#cube" x="142" y="100"/>
+  <use xlink:href="#cube" x="100" y="100"/>
+  <use xlink:href="#cube" x="121" y="112"/>
+</svg>
