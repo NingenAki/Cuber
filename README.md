@@ -8,7 +8,7 @@ This project intends to build a website to make cubing easier
 
 ### Install Node JS
 
-Refer to https://nodejs.org/en/ to install nodejs
+Refer to <https://nodejs.org/en/> to install nodejs
 
 ### Install create-react-app
 
@@ -39,8 +39,8 @@ The Application Runs on **localhost:3000**
 ## Resources
 
 **create-react-app** : The following link has all the commands that can be used with create-react-app
-https://github.com/facebook/create-react-app
+<https://github.com/facebook/create-react-app>
 
-**ReactJS** : Refer to https://reactjs.org/ to understand the concepts of ReactJS
+**ReactJS** : Refer to <https://reactjs.org/> to understand the concepts of ReactJS
 
-**Semantic UI React** : Refer to https://react.semantic-ui.com/ to understand how to use Semantic UI React
+**Semantic UI React** : Refer to <https://react.semantic-ui.com/> to understand how to use Semantic UI React
