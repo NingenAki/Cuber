@@ -66,3 +66,7 @@
     -webkit-transform: rotateX(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
     background-color: #ffd500;
 }
+.D3Cube .grey {
+    background-color: #827978af;
+}
+

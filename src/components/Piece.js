@@ -1,25 +1,82 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import PIECE_VALUES from "components/config/3x3x3";
 
 export default function Piece(props) {
   const [view, setView] = React.useState({ x: -22, y: -38, z: 0 });
-  const [rotation, setRotation] = React.useState({ x: 0, y: 0, z: 0 });
   const [position, setPosition] = React.useState({ x: 0, y: 0, z: 0 });
-  const [layer, setLayer] = React.useState(0);
+  const [initPos, setInitPos] = React.useState({ x: 0, y: 0, z: 0 });
+  const [rotation, setRotation] = React.useState({ x: 0, y: 0, z: 0 });
+  const [layer, setLayer] = React.useState("0");
+  const [mask, setMask] = React.useState([
+    { white: true },
+    { red: true },
+    { green: true },
+    { blue: true },
+    { orange: true },
+    { yellow: true },
+  ]);
   const [size, setSize] = React.useState(0);
 
   const ref = React.useRef();
 
   React.useEffect(() => {
-    if (props?.view) setView(props.view);
-    if (props?.layer) setLayer(props.layer);
-    if (props?.position) setPosition(props.position);
+    let initPos = PIECE_VALUES[props.index].position;
+    setInitPos(initPos);
+    setPosition(initPos);
+    checkMask();
+  }, [props?.index]);
+
+  React.useEffect(() => {
+    checkMask();
+  }, [props?.mask]);
+
+  React.useEffect(() => {
     if (props?.move) move(props.move);
-    // eslint-disable-next-line
-  }, [props]);
+  }, [props?.move]);
+
+  React.useEffect(() => {
+    if (props?.view) setView(props.view);
+  }, [props?.view]);
+
+  React.useEffect(() => {
+    changeLayer();
+    checkMask();
+  }, [position]);
 
   React.useEffect(() => {
     setSize(ref.current?.offsetWidth);
   }, [ref]);
+
+  function changeLayer() {
+    let i = PIECE_VALUES.findIndex(
+      p =>
+        p.position.x === position.x &&
+        p.position.y === position.y &&
+        p.position.z === position.z
+    );
+    setLayer(`${i + 1}`);
+  }
+
+  function checkMask() {
+    switch (props?.mask) {
+      case "corners":
+        if (position.x === 0 || position.y === 0 || position.z === 0)
+          setMask([
+            { white: false },
+            { red: false },
+            { green: false },
+            { blue: false },
+            { orange: false },
+            { yellow: false },
+          ]);
+        else setMask(PIECE_VALUES[props?.index].mask);
+        break;
+      default:
+        setMask(PIECE_VALUES[props?.index].mask);
+        break;
+    }
+  }
 
   function move(move) {
     switch (move) {
@@ -30,22 +87,22 @@ export default function Piece(props) {
         rotate("x", "CW");
         break;
       case "L":
-        if (position.x === -1) rotate("x", "CCW");
-        break;
-      case "L'":
         if (position.x === -1) rotate("x", "CW");
         break;
-      case "M":
-        if (position.x === 0) rotate("x", "CCW");
+      case "L'":
+        if (position.x === -1) rotate("x", "CCW");
         break;
-      case "M'":
+      case "M":
         if (position.x === 0) rotate("x", "CW");
         break;
+      case "M'":
+        if (position.x === 0) rotate("x", "CCW");
+        break;
       case "R":
-        if (position.x === 1) rotate("x", "CW");
+        if (position.x === 1) rotate("x", "CCW");
         break;
       case "R'":
-        if (position.x === 1) rotate("x", "CCW");
+        if (position.x === 1) rotate("x", "CW");
         break;
       case "Y":
         rotate("y", "CW");
@@ -102,31 +159,62 @@ export default function Piece(props) {
   }
 
   function rotate(axis, direction) {
-    direction = direction === "CW" ? -90 : 90;
-    setRotation((p) => ({ ...p, [axis]: p[axis] + direction }));
+    direction = direction === "CW" ? 1 : -1;
+    let currRotation = {
+      x: initPos.x - position.x,
+      y: initPos.y - position.y,
+      z: initPos.z - position.z,
+    };
+    switch (axis) {
+      case "x":
+        setPosition(p => ({
+          x: p.x,
+          y: p.z * direction,
+          z: -p.y * direction,
+        }));
+        setRotation(p => ({ ...p, x: p.x + 90 * direction }));
+        break;
+      case "y":
+        setPosition(p => ({
+          x: -p.z * direction,
+          y: p.y,
+          z: p.x * direction,
+        }));
+        setRotation(p => ({ ...p, y: p.y + 90 * direction }));
+      case "z":
+        setPosition(p => ({
+          x: p.y * direction,
+          y: -p.x * direction,
+          z: p.z,
+        }));
+        setRotation(p => ({ ...p, z: p.z + 90 * direction }));
+      default:
+        break;
+    }
   }
   return (
     <div
       className="D3Cube"
       style={{
-        zIndex: layer.toString(),
+        zIndex: `${layer}`,
         transform:
           `rotateX(${view.x}deg) rotateY(${view.y}deg) rotateZ(${view.z}deg)` +
-          ` rotateX(${rotation.x}deg)` +
-          ` rotateY(${rotation.y}deg)` +
-          ` rotateZ(${rotation.z}deg)` +
-          ` translateX(${size * position.x}px)` +
-          ` translateY(${size * position.y}px)` +
-          ` translateZ(${size * position.z}px)`,
+          ` rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg)` +
+          ` translateX(${size * PIECE_VALUES[props.index].position.x}px)` +
+          ` translateY(${size * PIECE_VALUES[props.index].position.y}px)` +
+          ` translateZ(${size * PIECE_VALUES[props.index].position.z}px)`,
       }}
       ref={ref}
     >
-      <div className="white"></div>
-      <div className="orange"></div>
-      <div className="green"></div>
-      <div className="red"></div>
-      <div className="blue"></div>
-      <div className="yellow"></div>
+      {mask.map(color => (
+        <div
+          className={
+            Object.values(color)[0]
+              ? Object.keys(color)[0]
+              : Object.keys(color)[0] + " grey"
+          }
+        />
+      ))}
     </div>
   );
 }
