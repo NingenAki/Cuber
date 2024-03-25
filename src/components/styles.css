@@ -70,3 +70,14 @@
     background-color: #827978af;
 }
 
+.arrow {
+    position: absolute;
+    z-index: 50;
+    color: black;
+    width: calc(var(--size) * 2);
+    height: calc(var(--size) * 2);
+}
+
+.arrow.x {
+    margin: calc(var(--size) * .8) calc(var(--size) * 1);
+}

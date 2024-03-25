@@ -1,5 +1,6 @@
 import React from "react";
 import { Checkbox } from "semantic-ui-react";
+import Move from "./Move";
 import MoveButton from "./MoveButton";
 import Piece from "./Piece";
 import "./styles.css";
@@ -22,6 +23,7 @@ export default function Cube() {
             onMove={() => setMove(null)}
           />
         ))}
+        <Move move={"X"} />
       </div>
       <MoveButton move="X" onMove={move => setMove(move)} />
       <MoveButton move="Y" onMove={move => setMove(move)} />
