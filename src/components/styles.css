@@ -66,3 +66,18 @@
     -webkit-transform: rotateX(-90deg) translateX(0px) translateY(0px) translateZ(calc(var(--size) / 2));
     background-color: #ffd500;
 }
+.D3Cube .grey {
+    background-color: #827978af;
+}
+
+.arrow {
+    position: absolute;
+    z-index: 50;
+    color: black;
+    width: calc(var(--size) * 2);
+    height: calc(var(--size) * 2);
+}
+
+.arrow.x {
+    margin: calc(var(--size) * .8) calc(var(--size) * 1);
+}

@@ -38,6 +38,8 @@ The Application Runs on **localhost:3000**
 
 ## Resources
 
+**Simple ReacJS App** : This project was built with a template deployed at <https://aditya-sridhar.github.io/simple-reactjs-app>
+
 **create-react-app** : The following link has all the commands that can be used with create-react-app
 <https://github.com/facebook/create-react-app>
 
