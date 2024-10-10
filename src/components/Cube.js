@@ -30,15 +30,15 @@ export default function Cube() {
       <MoveButton move="Z" onMove={move => setMove(move)} />
       <br />
       <MoveButton move="L" onMove={move => setMove(move)} />
-      <MoveButton move="M" onMove={move => setMove(move)} />
-      <MoveButton move="R" onMove={move => setMove(move)} />
-      <br />
       <MoveButton move="U" onMove={move => setMove(move)} />
-      <MoveButton move="E" onMove={move => setMove(move)} />
-      <MoveButton move="D" onMove={move => setMove(move)} />
-      <br />
       <MoveButton move="F" onMove={move => setMove(move)} />
+      <br />
+      <MoveButton move="M" onMove={move => setMove(move)} />
+      <MoveButton move="E" onMove={move => setMove(move)} />
       <MoveButton move="S" onMove={move => setMove(move)} />
+      <br />
+      <MoveButton move="R" onMove={move => setMove(move)} />
+      <MoveButton move="D" onMove={move => setMove(move)} />
       <MoveButton move="B" onMove={move => setMove(move)} />
       <br />
     </>
