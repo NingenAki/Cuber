@@ -23,7 +23,7 @@ export default function Cube() {
             onMove={() => setMove(null)}
           />
         ))}
-        <Move move={"X"} />
+        <Move move={move} />
       </div>
       <MoveButton move="X" onMove={move => setMove(move)} />
       <MoveButton move="Y" onMove={move => setMove(move)} />

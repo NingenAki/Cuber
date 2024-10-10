@@ -79,82 +79,25 @@ export default function Piece(props) {
   }
 
   function move(move) {
-    switch (move) {
-      case "X":
-        rotate("x", "CCW");
-        break;
-      case "X'":
-        rotate("x", "CW");
-        break;
-      case "L":
-        if (position.x === -1) rotate("x", "CW");
-        break;
-      case "L'":
-        if (position.x === -1) rotate("x", "CCW");
-        break;
-      case "M":
-        if (position.x === 0) rotate("x", "CW");
-        break;
-      case "M'":
-        if (position.x === 0) rotate("x", "CCW");
-        break;
-      case "R":
-        if (position.x === 1) rotate("x", "CCW");
-        break;
-      case "R'":
-        if (position.x === 1) rotate("x", "CW");
-        break;
-      case "Y":
-        rotate("y", "CW");
-        break;
-      case "Y'":
-        rotate("y", "CCW");
-        break;
-      case "U":
-        if (position.y === -1) rotate("y", "CW");
-        break;
-      case "U'":
-        if (position.y === -1) rotate("y", "CCW");
-        break;
-      case "E":
-        if (position.y === 0) rotate("y", "CCW");
-        break;
-      case "E'":
-        if (position.y === 0) rotate("y", "CW");
-        break;
-      case "D":
-        if (position.y === 1) rotate("y", "CCW");
-        break;
-      case "D'":
-        if (position.y === 1) rotate("y", "CW");
-        break;
-      case "Z":
-        rotate("z", "CCW");
-        break;
-      case "Z'":
-        rotate("z", "CW");
-        break;
-      case "F":
-        if (position.z === 1) rotate("z", "CCW");
-        break;
-      case "F'":
-        if (position.z === 1) rotate("z", "CW");
-        break;
-      case "S":
-        if (position.z === 0) rotate("z", "CCW");
-        break;
-      case "S'":
-        if (position.z === 0) rotate("z", "CW");
-        break;
-      case "B":
-        if (position.z === -1) rotate("z", "CW");
-        break;
-      case "B'":
-        if (position.z === -1) rotate("z", "CCW");
-        break;
-      default:
-        break;
-    }
+    const negative = move.includes("'")
+    const _move = move.replace("'", "");
+    const moves = {
+        X: { axis: "x", direction: negative ? "CW" : "CCW", filter: null },
+        L: { axis: "x", direction: negative ? "CCW" : "CW", filter: -1 },
+        M: { axis: "x", direction: negative ? "CCW" : "CW", filter: 0 },
+        R: { axis: "x", direction: negative ? "CW" : "CCW", filter: 1 },
+        Y: { axis: "y", direction: negative ? "CCW" : "CW", filter: null },
+        U: { axis: "y", direction: negative ? "CCW" : "CW", filter: -1 },
+        E: { axis: "y", direction: negative ? "CW" : "CCW", filter: 0 },
+        D: { axis: "y", direction: negative ? "CW" : "CCW", filter: 1 },
+        Z: { axis: "z", direction: negative ? "CW" : "CCW", filter: null },
+        F: { axis: "z", direction: negative ? "CW" : "CCW", filter: -1 },
+        S: { axis: "z", direction: negative ? "CW" : "CCW", filter: 0 },
+        B: { axis: "z", direction: negative ? "CCW" : "CW", filter: 1 },
+    };
+    const m = moves[_move];
+    if (m && (m.filter === null || position[m.axis] === m.filter))
+        rotate(m.axis, m.direction);
     props.onMove();
   }
 
