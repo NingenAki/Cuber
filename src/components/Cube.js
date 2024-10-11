@@ -6,20 +6,21 @@ import Piece from "./Piece";
 import "./styles.css";
 export default function Cube() {
   const [move, setMove] = React.useState("");
-  const [mask, setMask] = React.useState("");
+  const [filter, setFilter] = React.useState("");
   return (
     <>
       <Checkbox
         label="corners"
-        value={mask}
-        onChange={() => setMask(p => (p === "corners" ? "" : "corners"))}
+        value={filter}
+        onChange={() => setFilter(p => (p === "corners" ? "" : "corners"))}
       />
       <div className="wrapD3Cube">
         {[...Array(26)].map((x, i) => (
           <Piece
             index={i}
+            view={{x: -22, y: -38, z: 0}}
             move={move}
-            mask={mask}
+            filter={filter}
             onMove={() => setMove(null)}
           />
         ))}

@@ -1,47 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import PIECE_VALUES from "components/config/3x3x3";
+import { fromRotation, getRotations, multiply, getNewPosition, toArray } from "./quartenion";
 
-export default function Piece(props) {
-  const [view, setView] = React.useState({ x: -22, y: -38, z: 0 });
-  const [position, setPosition] = React.useState({ x: 0, y: 0, z: 0 });
-  const [initPos, setInitPos] = React.useState({ x: 0, y: 0, z: 0 });
-  const [rotation, setRotation] = React.useState({ x: 0, y: 0, z: 0 });
+export default function Piece({ index, move, onMove, filter, view }) {
+  const initPos = PIECE_VALUES[index].position;
+  const [position, setPosition] = React.useState({...initPos});
+  const [rotation, setRotation] = React.useState();
   const [layer, setLayer] = React.useState("0");
-  const [mask, setMask] = React.useState([
-    { white: true },
-    { red: true },
-    { green: true },
-    { blue: true },
-    { orange: true },
-    { yellow: true },
-  ]);
+  const [mask, setMask] = React.useState();
   const [size, setSize] = React.useState(0);
 
   const ref = React.useRef();
 
   React.useEffect(() => {
-    let initPos = PIECE_VALUES[props.index].position;
-    setInitPos(initPos);
-    setPosition(initPos);
-    checkMask();
-  }, [props?.index]);
-
-  React.useEffect(() => {
-    checkMask();
-  }, [props?.mask]);
-
-  React.useEffect(() => {
-    if (props?.move) move(props.move);
-  }, [props?.move]);
-
-  React.useEffect(() => {
-    if (props?.view) setView(props.view);
-  }, [props?.view]);
-
-  React.useEffect(() => {
+    setRotation(fromRotation(toArray(position), 0))
+    handleMask();
     changeLayer();
-    checkMask();
+  }, [index]);
+
+  React.useEffect(() => {
+    handleMask();
+  }, [filter]);
+
+  React.useEffect(() => {
+    if (move) handleMove(move);
+  }, [move]);
+
+  React.useEffect(() => {
+    console.log(position)
+    changeLayer();
+    handleMask();
   }, [position]);
 
   React.useEffect(() => {
@@ -58,8 +47,8 @@ export default function Piece(props) {
     setLayer(`${i + 1}`);
   }
 
-  function checkMask() {
-    switch (props?.mask) {
+  function handleMask() {
+    switch (filter) {
       case "corners":
         if (position.x === 0 || position.y === 0 || position.z === 0)
           setMask([
@@ -70,15 +59,15 @@ export default function Piece(props) {
             { orange: false },
             { yellow: false },
           ]);
-        else setMask(PIECE_VALUES[props?.index].mask);
+        else setMask(PIECE_VALUES[index].mask);
         break;
       default:
-        setMask(PIECE_VALUES[props?.index].mask);
+        setMask(PIECE_VALUES[index].mask);
         break;
     }
   }
 
-  function move(move) {
+  function handleMove(move) {
     const negative = move.includes("'")
     const _move = move.replace("'", "");
     const moves = {
@@ -98,43 +87,21 @@ export default function Piece(props) {
     const m = moves[_move];
     if (m && (m.filter === null || position[m.axis] === m.filter))
         rotate(m.axis, m.direction);
-    props.onMove();
+    onMove();
   }
 
   function rotate(axis, direction) {
     direction = direction === "CW" ? 1 : -1;
-    let currRotation = {
-      x: initPos.x - position.x,
-      y: initPos.y - position.y,
-      z: initPos.z - position.z,
-    };
-    switch (axis) {
-      case "x":
-        setPosition(p => ({
-          x: p.x,
-          y: p.z * direction,
-          z: -p.y * direction,
-        }));
-        setRotation(p => ({ ...p, x: p.x + 90 * direction }));
-        break;
-      case "y":
-        setPosition(p => ({
-          x: -p.z * direction,
-          y: p.y,
-          z: p.x * direction,
-        }));
-        setRotation(p => ({ ...p, y: p.y + 90 * direction }));
-      case "z":
-        setPosition(p => ({
-          x: p.y * direction,
-          y: -p.x * direction,
-          z: p.z,
-        }));
-        setRotation(p => ({ ...p, z: p.z + 90 * direction }));
-      default:
-        break;
+    const axisVectors = {
+      x: [1, 0, 0],
+      y: [0, 1, 0],
+      z: [0, 0, 1]
     }
+    const newRotation = multiply(rotation, fromRotation(axisVectors[axis], direction * 90))
+    setRotation(newRotation);
+    setPosition(getNewPosition(newRotation, initPos))
   }
+
   return (
     <div
       className="D3Cube"
@@ -142,14 +109,14 @@ export default function Piece(props) {
         zIndex: `${layer}`,
         transform:
           `rotateX(${view.x}deg) rotateY(${view.y}deg) rotateZ(${view.z}deg)` +
-          ` rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg)` +
-          ` translateX(${size * PIECE_VALUES[props.index].position.x}px)` +
-          ` translateY(${size * PIECE_VALUES[props.index].position.y}px)` +
-          ` translateZ(${size * PIECE_VALUES[props.index].position.z}px)`,
+          `${rotation ? getRotations(rotation) : ""}` +
+          ` translateX(${size * PIECE_VALUES[index].position.x}px)` +
+          ` translateY(${size * PIECE_VALUES[index].position.y}px)` +
+          ` translateZ(${size * PIECE_VALUES[index].position.z}px)` 
       }}
       ref={ref}
     >
-      {mask.map(color => (
+      {mask?.map(color => (
         <div
           className={
             Object.values(color)[0]
