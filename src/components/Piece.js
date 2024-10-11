@@ -28,7 +28,6 @@ export default function Piece({ index, move, onMove, filter, view }) {
   }, [move]);
 
   React.useEffect(() => {
-    console.log(position)
     changeLayer();
     handleMask();
   }, [position]);
@@ -94,7 +93,7 @@ export default function Piece({ index, move, onMove, filter, view }) {
     direction = direction === "CW" ? 1 : -1;
     const axisVectors = {
       x: [1, 0, 0],
-      y: [0, 1, 0],
+      y: [0, 1, 0], //TODO: algo de errado nao esta certo
       z: [0, 0, 1]
     }
     const newRotation = multiply(rotation, fromRotation(axisVectors[axis], direction * 90))
